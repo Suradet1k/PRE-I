@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>งานแก้ I</title>
+  <style>
+    body {
+      background-position: center; /* กำหนดตำแหน่งภาพ */
+      height: 100vh; /* ปรับความสูงของหน้าจอ */
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row; /* จัดเรียงเนื้อหาแนวนอน */
+
+    }
+    .image2 {
+        /*align-items: 100;*/
+        height: 800px;
+        width: 1000px;
+        background-position: 0%;
+
+    }
+    .h2 {
+      color: #000000;
+      font-size: 30;
+    }
+    label {
+      font-weight: bold;
+    }
+    input[type="number"],
+    button {
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+    button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    p {
+      font-style: italic;
+      color: #000000;
+      font-size: 30;
+    }
+    img {
+      max-width: 100%; /* ความกว้างของภาพไม่เกินพื้นที่ที่กำหนด */
+      height: auto; /* ปรับความสูงของภาพอัตโนมัติ */
+    }
+    
+  </style>
+</head>
+    <body>
+        <img src="1.jpg" alt="image"  class="image2">
+    </body>
+    <center>
+    <body>
+        <center>
+          <h2>หาค่า v และ a ตามกราฟ</h2>
+          <label for="aValue">กำหนดเลขหน้าตัวแปร: </label>
+          <input type="number" id="aValue" step="any">
+          <br><br>
+          <label for="cValue">กำหนดเลขหลังตวแปร: </label>
+          <input type="number" id="cValue" step="any">
+          <br><br>
+          <label for="nValue">กำหนดค่าเลขยกกำลัง: </label>
+          <input type="number" id="nValue" step="any">
+          <button onclick="calculate()">คำนวณ</button>
+          <br><br>
+          <button onclick="clearResults()">ล้างคำตอบ</button>
+          <p id="derivativeResult"></p>
+        </center>
+      
+        <hr> <!-- Add a horizontal line to separate the sections -->
+      
+        <center>
+          <h2>หาค่า v ด้วยผลต่าง</h2>
+          <label for="x1Value">ป้อนค่า x1: </label>
+          <input type="number" id="x1Value" step="any">
+          <br><br>
+          <label for="x2Value">ป้อนค่า x2: </label>
+          <input type="number" id="x2Value" step="any">
+          <br><br>
+          <label for="t1Value">ป้อนค่า t1: </label>
+          <input type="number" id="t1Value" step="any">
+          <br><br>
+          <label for="t2Value">ป้อนค่า t2: </label>
+          <input type="number" id="t2Value" step="any">
+          <button onclick="calculate1()">คำนวณ</button>
+          <br><br>
+          <button onclick="clearResults1()">ล้างคำตอบ</button>
+          <p id="vResult"></p>
+        </center>
+<script>
+  // ฟังก์ชันคำนวณอนุพันธ์ของ ax^n - c ที่ x = 1
+  function differentiate(f, x) {
+    const h = 0.0001; // ค่าเล็กเพื่อใช้ในการประมาณอนุพันธ์
+
+    // ใช้สูตรหลักของอนุพันธ์ (f'(x) = [f(x + h) - f(x)] / h) เพื่อคำนวณ
+    const derivative = (f(x + h) - f(x)) / h;
+    return derivative.toFixed(2); 
+  }
+
+  // ฟังก์ชัน ax^n - c
+  function myFunction(a, x, n, c) {
+    return a * Math.pow(x, n) - c;
+  }
+
+  // ฟังก์ชันสำหรับคำนวณค่า v
+  function calculate() {
+    const aValue = parseFloat(document.getElementById('aValue').value);
+    const cValue = parseFloat(document.getElementById('cValue').value);
+    const nValue = parseFloat(document.getElementById('nValue').value);
+    const x1Value = parseFloat(document.getElementById('x1Value').value);
+    const x2Value = parseFloat(document.getElementById('x2Value').value);
+    const t1Value = parseFloat(document.getElementById('t1Value').value);
+    const t2Value = parseFloat(document.getElementById('t2Value').value);
+
+    const derivativeResult = differentiate((x) => myFunction(aValue, x, nValue, cValue), 1);
+    const vResult = (x2Value - x1Value) / (t2Value - t1Value);
+
+    document.getElementById('derivativeResult').innerText = `ค่าที่ได้ คือ ${derivativeResult}`;
+    
+  }
+  function calculate1() {
+    const x1Value = parseFloat(document.getElementById('x1Value').value);
+    const x2Value = parseFloat(document.getElementById('x2Value').value);
+    const t1Value = parseFloat(document.getElementById('t1Value').value);
+    const t2Value = parseFloat(document.getElementById('t2Value').value);
+
+    
+    const vResult = (x2Value - x1Value) / (t2Value - t1Value);
+
+    
+    document.getElementById('vResult').innerText = `ค่า v คือ ${vResult}`;
+  }
+  function clearResults() {
+    document.getElementById('derivativeResult').innerText = '';
+  }
+    function clearResults1() {
+    document.getElementById('vResult').innerText = '';
+  }
+</script>
+
+</body>
+</center>
+</html>
